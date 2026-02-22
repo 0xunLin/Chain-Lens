@@ -3,6 +3,9 @@
 
 Build a CLI tool that turns a raw Bitcoin transaction into a precise, machine-checkable JSON report, and a web visualizer (built on top of the same logic) that explains the transaction to non-technical users with diagrams, annotations, and friendly language.
 
+> [!NOTE]
+> Please refer to [ChainLens95.md](ChainLens95.md) for a summary of the project and instructions on how to run the web visualizer and CLI analyzer locally.
+
 This is a protocol-focused challenge: you are expected to lean on your understanding of Bitcoin transaction serialization and accounting to make your implementation robust beyond the small set of public examples.
 
 ---
