@@ -52,18 +52,8 @@ if [[ "${1:-}" == "--block" ]]; then
   # Create output directory
   mkdir -p out
 
-  # TODO: Implement block parsing
-  #   1. Read and XOR-decode blk*.dat and rev*.dat using xor.dat key
-  #   2. Parse 80-byte block headers
-  #   3. Parse all transactions in each block
-  #   4. Parse undo data for prevouts
-  #   5. Compute merkle root and verify
-  #   6. Identify coinbase, decode BIP34 height
-  #   7. Write out/<block_hash>.json for each block
-
-  error_json "NOT_IMPLEMENTED" "Block parsing is not yet implemented"
-  echo "Error: Block parsing is not yet implemented" >&2
-  exit 1
+  python3 main.py --block "$BLK_FILE" "$REV_FILE" "$XOR_FILE"
+  exit $?
 fi
 
 # --- Single-transaction mode ---
@@ -84,16 +74,4 @@ fi
 # Create output directory
 mkdir -p out
 
-# TODO: Implement transaction parsing
-#   1. Read fixture JSON (network, raw_tx, prevouts)
-#   2. Parse raw_tx hex (version, inputs, outputs, witness, locktime)
-#   3. Match prevouts to inputs by (txid, vout)
-#   4. Compute txid, wtxid, fees, weight, vbytes
-#   5. Classify input/output scripts, derive addresses
-#   6. Detect RBF, timelocks, warnings
-#   7. Build and output JSON report
-#   8. Write to out/<txid>.json and print to stdout
-
-error_json "NOT_IMPLEMENTED" "Transaction parsing is not yet implemented"
-echo "Error: Transaction parsing is not yet implemented" >&2
-exit 1
+python3 main.py "$FIXTURE"

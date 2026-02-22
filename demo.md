@@ -1,1 +1,1 @@
-https://example.com/demo-video-link
+[Watch the Chain Lens demo video on YouTube](https://youtu.be/aHk-nrQYOKQ)

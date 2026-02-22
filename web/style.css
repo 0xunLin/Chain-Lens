@@ -1,0 +1,366 @@
+@font-face {
+    font-family: 'VT323';
+    src: url('VT323-Regular.ttf') format('truetype');
+}
+
+:root {
+    --win-gray: #c0c0c0;
+    --win-dark: #808080;
+    --win-light: #ffffff;
+    --win-black: #000000;
+    --win-blue: #000080;
+    --term-green: #00ff00;
+    --paper-bg: #fdf5e6;
+}
+
+body {
+    background-color: #008080;
+    font-family: 'VT323', 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.window-frame,
+.panel,
+.win95-btn,
+.cli-input-container {
+    background-color: var(--win-gray);
+    box-shadow: inset 1px 1px var(--win-light),
+        inset -1px -1px var(--win-black),
+        inset 2px 2px #dfdfdf,
+        inset -2px -2px var(--win-dark);
+    padding: 4px;
+}
+
+.window-frame {
+    width: 900px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title-bar {
+    background: linear-gradient(90deg, var(--win-blue), #1084d0);
+    color: white;
+    padding: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.title-controls button {
+    width: 20px;
+    height: 20px;
+    background: var(--win-gray);
+    border: 1px outset white;
+    font-size: 12px;
+    line-height: 10px;
+    cursor: pointer;
+}
+
+.brand-header {
+    background-color: #000;
+    color: #ffcc00;
+    text-align: center;
+    padding: 10px;
+    border: 2px inset var(--win-dark);
+}
+
+.brand-header h1 {
+    margin: 0;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: var(--term-green);
+    font-size: 14px;
+}
+
+.panel-header {
+    background-color: var(--win-blue);
+    color: white;
+    padding: 2px 8px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.crt-screen {
+    background-color: #000;
+    color: var(--term-green);
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+    border: 2px inset var(--win-dark);
+    flex-grow: 1;
+    height: 120px;
+    overflow-y: auto;
+}
+
+.flex-row {
+    display: flex;
+    gap: 10px;
+}
+
+.logo-container {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    color: #ffd700;
+    text-shadow: 4px 4px #000;
+    border: 2px inset var(--win-dark);
+    background: #444;
+}
+
+.cli-input-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    padding: 5px;
+    border: 2px inset var(--win-dark);
+    min-width: 0;
+    /* Prevents overflow */
+}
+
+.button-group {
+    display: flex;
+    gap: 5px;
+}
+
+.win95-btn {
+    padding: 5px 15px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.win95-btn:active {
+    box-shadow: inset 1px 1px var(--win-black), inset -1px -1px var(--win-light);
+    transform: translate(1px, 1px);
+}
+
+.paper-panel {
+    border: 1px solid #000;
+}
+
+.paper-content {
+    background-color: var(--paper-bg);
+    color: #333;
+    padding: 20px;
+    border: 2px inset #dcb;
+    font-family: 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.4;
+    height: 150px;
+    overflow-y: auto;
+}
+
+.story-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.story-step {
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #999;
+    padding-bottom: 10px;
+}
+
+.flow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 20px;
+    background: #e0e0e0;
+    border: 2px inset white;
+}
+
+.flow-column {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.utxo-box {
+    background: #fff;
+    border: 1px solid #000;
+    padding: 8px;
+    font-size: 14px;
+    box-shadow: 2px 2px #888;
+    word-break: break-all;
+}
+
+.flow-arrow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #555;
+    flex-grow: 1;
+}
+
+.fee-badge {
+    font-size: 11px;
+    background: #ffcccc;
+    border: 1px solid red;
+    padding: 3px 6px;
+    margin-top: 5px;
+    text-align: center;
+    max-width: 120px;
+    word-wrap: break-word;
+}
+
+/* Warnings and SegWit Panel */
+.warning-badge {
+    background-color: #ffffe0;
+    border: 2px solid #ffcc00;
+    color: #b30000;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    box-shadow: inset 1px 1px #fff, inset -1px -1px #d4a000;
+}
+
+.segwit-container {
+    padding: 10px;
+    background: #000;
+    border: 2px inset var(--win-dark);
+    color: white;
+}
+
+.weight-bar-label {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.weight-bar {
+    height: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    transition: width 0.5s ease;
+}
+
+.actual-weight {
+    background: var(--term-green);
+}
+
+.legacy-weight {
+    background: #ff0000;
+}
+
+.savings-text {
+    text-align: right;
+    color: #ffcc00;
+    font-size: 16px;
+}
+
+.hex-terminal {
+    width: 100%;
+    height: 150px;
+    background: #000;
+    color: #ccc;
+    font-family: monospace;
+    border: 2px inset gray;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.status-bar {
+    border-top: 1px solid #888;
+    padding-top: 4px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+    .flex-row {
+        flex-direction: column;
+    }
+
+    .logo-container {
+        width: 100%;
+        height: 60px;
+        font-size: 40px;
+    }
+
+    .cli-input-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .win95-btn {
+        flex: 1;
+        min-width: 30%;
+    }
+
+    .flow-container {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .flow-column {
+        width: 100%;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+        margin: 10px 0;
+        font-size: 50px;
+    }
+
+    .fee-badge {
+        transform: rotate(-90deg);
+        white-space: nowrap;
+        margin-top: 30px;
+    }
+}
+
+.story-help-text {
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 5px;
+    line-height: 1.2;
+}

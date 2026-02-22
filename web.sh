@@ -1,27 +1,17 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+# web.sh - Starts the Chain Lens Web Visualizer
 
-###############################################################################
-# web.sh — Bitcoin transaction web visualizer
-#
-# Starts the web visualizer server.
-#
-# Behavior:
-#   - Reads PORT env var (default: 3000)
-#   - Prints the URL (e.g., http://127.0.0.1:3000) to stdout
-#   - Keeps running until terminated (CTRL+C / SIGTERM)
-#   - Must serve GET /api/health -> 200 { "ok": true }
-#
-# TODO: Replace the stub below with your web server start command.
-###############################################################################
+# Check if python is available
+if ! command -v python3 &> /dev/null; then
+    echo "Error: python3 could not be found."
+    exit 1
+fi
 
-PORT="${PORT:-3000}"
+# Set default port if not set
+PORT=${PORT:-3000}
 
-# TODO: Start your web server here, for example:
-#   exec node server.js
-#   exec python -m http.server "$PORT"
-#   exec cargo run --release -- --port "$PORT"
+echo "Starting Chain Lens Web Visualizer on port $PORT..."
+echo "http://127.0.0.1:$PORT"
 
-echo "Error: Web visualizer is not yet implemented" >&2
-echo "Set up your web server to listen on port $PORT" >&2
-exit 1
+# Run server.py (Assumes server.py is in the root or same dir as web.sh)
+python3 server.py --port $PORT

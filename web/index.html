@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain Lens 95</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="window-frame">
+
+        <div class="title-bar">
+            <div class="title-text">Chain Lens.exe</div>
+            <div class="title-controls">
+                <button aria-label="Minimize" onclick="alert('NO THEY DON&#39;T DO ANYTHING!')">_</button>
+                <button aria-label="Maximize" onclick="alert('NO THEY DON&#39;T DO ANYTHING!')">□</button>
+                <button aria-label="Close" class="close-btn"
+                    onclick="alert('NO THEY DON&#39;T DO ANYTHING!')">X</button>
+            </div>
+        </div>
+
+        <div class="brand-header">
+            <h1>CHAIN LENS: BITCOIN BLOCK EXPLORER</h1>
+            <div class="subtitle">WELCOME TO THE DECENTRALIZED FRONTIER</div>
+        </div>
+
+        <div class="panel system-panel">
+            <div class="panel-header">SYSTEM STATUS</div>
+            <div class="panel-content flex-row">
+
+                <div class="crt-screen" id="status-display">
+                    <p>STATUS: READY_</p>
+                    <p>MEM: 640KB OK</p>
+                    <p>NET: MAINNET</p>
+                    <br>
+                    <p class="blink">WAITING FOR INPUT...</p>
+                </div>
+
+                <div class="logo-container">
+                    <div class="pixel-btc">₿</div>
+                </div>
+            </div>
+
+            <div class="cli-input-container" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                <div class="mode-tabs"
+                    style="display: flex; gap: 10px; margin-bottom: 5px; font-family: 'VT323', monospace;">
+                    <label><input type="radio" name="mode" value="tx" checked onchange="toggleMode()"> TX JSON</label>
+                    <label><input type="radio" name="mode" value="block" onchange="toggleMode()"> Block Upload</label>
+                </div>
+
+                <div id="tx-input-group" style="display: flex; flex-direction: column; gap: 5px;">
+                    <label for="tx-json-input">C:/> ENTER TX FIXTURE JSON: </label>
+                    <textarea id="tx-json-input" placeholder="Paste fixture JSON here..."
+                        style="font-family: monospace; height: 100px;"></textarea>
+                </div>
+
+                <div id="block-input-group" style="display: none; flex-direction: column; gap: 5px;">
+                    <label>C:/> SELECT BLOCK FILES: </label>
+                    <div style="display: flex; flex-direction: column; gap: 5px; font-family: monospace;">
+                        <div><label style="display:inline-block; width:50px;">BLK: </label><input type="file"
+                                id="file-blk"></div>
+                        <div><label style="display:inline-block; width:50px;">REV: </label><input type="file"
+                                id="file-rev"></div>
+                        <div><label style="display:inline-block; width:50px;">XOR: </label><input type="file"
+                                id="file-xor"></div>
+                    </div>
+                </div>
+
+                <div class="button-group" style="margin-top: 5px;">
+                    <button class="win95-btn" onclick="analyze()">EXPLORE</button>
+                    <button class="win95-btn" onclick="loadDemo()">DEMO TX</button>
+                    <button class="win95-btn" onclick="loadDemoBlock()">DEMO BLOCK</button>
+                    <button class="win95-btn" onclick="showHelp()">HELP</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading-overlay" class="hidden">
+            <div class="loading-box">
+                <p>BREAKING DOWN BLOCKCHAIN DATA FOR YOU...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="results-area" class="hidden">
+
+            <div id="warnings-container"></div>
+
+            <div class="panel paper-panel" id="story-panel">
+                <div class="panel-header">STORY MODE</div>
+                <div class="paper-content" id="story-content">
+                </div>
+            </div>
+
+            <div class="panel hidden" id="segwit-panel">
+                <div class="panel-header">SEGWIT DISCOUNT VISUALIZER</div>
+                <div class="segwit-container">
+                    <div class="weight-bar-label">ACTUAL WEIGHT (WITH SEGWIT)</div>
+                    <div class="weight-bar actual-weight" id="actual-weight-bar"></div>
+
+                    <div class="weight-bar-label">HYPOTHETICAL LEGACY WEIGHT</div>
+                    <div class="weight-bar legacy-weight" id="legacy-weight-bar"></div>
+                    <div class="savings-text" id="savings-text"></div>
+                </div>
+            </div>
+
+            <div class="panel" id="flow-panel">
+                <div class="panel-header">TRANSACTION FLOW</div>
+                <div class="flow-container">
+                    <div class="flow-column" id="inputs-list"></div>
+                    <div class="flow-arrow">
+                        ➜
+                        <div class="fee-badge" id="fee-badge">FEE: ???</div>
+                    </div>
+                    <div class="flow-column" id="outputs-list"></div>
+                </div>
+            </div>
+
+            <div class="panel hidden" id="advanced-features-panel">
+                <div class="panel-header">ADVANCED FEATURES: RBF & TIMELOCKS</div>
+                <div class="flow-container" id="advanced-features-content" style="flex-direction: column; padding: 10px; font-family: monospace;">
+                </div>
+            </div>
+
+            <div class="panel hidden" id="block-overview-panel">
+                <div class="panel-header">BLOCK OVERVIEW</div>
+                <div class="flow-container" id="block-stats" style="flex-direction: column;">
+                </div>
+                <div id="block-tx-list"
+                    style="margin: 10px; background: #fff; border: 2px inset var(--win-dark); max-height: 300px; overflow-y: auto;">
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">RAW BLOCKCHAIN DATA (JSON_DUMP)</div>
+                <textarea readonly id="hex-view" class="hex-terminal"></textarea>
+            </div>
+
+        </div>
+
+        <div class="status-bar">
+            <span id="footer-msg">STATUS: IDLE</span>
+            <span class="right-align">v1.0.0</span>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
